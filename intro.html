@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Rizz Carlton</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #C9A96E;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transition: background 2.2s cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    body.night {
+      background: #0a0a0a;
+    }
+
+    .wordmark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      user-select: none;
+    }
+
+    .line-the {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(11px, 1.1vw, 16px);
+      font-weight: 400;
+      letter-spacing: 0.55em;
+      color: #1a1008;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 1.2s ease, color 2.2s cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    .line-the.night { color: #C9A96E; }
+
+    .gold-rule {
+      width: 48px;
+      height: 1px;
+      background: #1a1008;
+      opacity: 0;
+      transition: opacity 1s ease, background 2.2s cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    .gold-rule.night { background: #C9A96E; }
+
+    .line-main {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: #1a1008;
+      opacity: 0;
+      transform: translateY(20px);
+      will-change: transform, opacity;
+      transition: color 2.2s cubic-bezier(0.45, 0, 0.55, 1);
+    }
+
+    .line-main.night { color: #C9A96E; }
+
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes lights-on {
+      0%   { text-shadow: none; }
+      50%  { text-shadow: 0 0 20px rgba(201,169,110,1), 0 0 60px rgba(201,169,110,0.9), 0 0 120px rgba(201,169,110,0.7), 0 0 200px rgba(201,169,110,0.4), 0 0 300px rgba(201,169,110,0.2); }
+      70%  { text-shadow: 0 0 40px rgba(255,220,140,1), 0 0 100px rgba(201,169,110,1), 0 0 180px rgba(201,169,110,0.8), 0 0 280px rgba(201,169,110,0.5), 0 0 400px rgba(201,169,110,0.25); }
+      100% { text-shadow: 0 0 20px rgba(201,169,110,0.9), 0 0 50px rgba(201,169,110,0.5), 0 0 100px rgba(201,169,110,0.25), 0 0 180px rgba(201,169,110,0.1); }
+    }
+
+    .glow {
+      animation: lights-on 3.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="wordmark">
+    <div class="line-the" id="line-the">The</div>
+    <div class="gold-rule" id="gold-rule"></div>
+    <div class="line-main" id="line-main">Rizz Carlton</div>
+  </div>
+
+  <script>
+    const body     = document.body;
+    const lineThe  = document.getElementById('line-the');
+    const goldRule = document.getElementById('gold-rule');
+    const lineMain = document.getElementById('line-main');
+
+    // Beat 1 — "The" fades in (black on gold)
+    setTimeout(() => lineThe.style.opacity = '1', 400);
+
+    // Beat 2 — rule appears
+    setTimeout(() => goldRule.style.opacity = '1', 900);
+
+    // Beat 3 — wordmark rises
+    setTimeout(() => {
+      lineMain.style.animation = 'rise-in 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+    }, 1400);
+
+    // Beat 4 — hold, then day-to-night shift
+    setTimeout(() => {
+      body.classList.add('night');
+      lineThe.classList.add('night');
+      goldRule.classList.add('night');
+      lineMain.classList.add('night');
+    }, 3000);
+
+    // Beat 5 — glow builds once night fully settles (3000 + 2200ms transition + 200ms buffer)
+    setTimeout(() => {
+      lineMain.style.opacity = '1';
+      lineMain.style.transform = 'none';
+      lineMain.style.animation = 'lights-on 2.6s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+    }, 5400);
+  </script>
+</body>
+</html>

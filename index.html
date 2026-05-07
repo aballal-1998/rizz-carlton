@@ -549,6 +549,17 @@
     line-height: 1.1;
     letter-spacing: 0.01em;
     white-space: nowrap;
+    margin-bottom: 16px;
+  }
+
+  .closing-cta {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 38px;
+    font-weight: 400;
+    color: var(--gold);
+    text-align: center;
+    letter-spacing: 0.02em;
     margin-bottom: 28px;
   }
 
@@ -581,6 +592,7 @@
     transform-style: preserve-3d;
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    border-radius: 18px;
     box-shadow:
       0 24px 60px rgba(0,0,0,0.55),
       0 6px 18px rgba(0,0,0,0.35),
@@ -603,6 +615,7 @@
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     overflow: hidden;
+    border-radius: 18px;
     border: none;
     background:
       linear-gradient(rgba(180,150,80,0.5) 0 0) top left    / 24px 1px no-repeat,
@@ -663,13 +676,16 @@
       transparent
     );
     transform: skewX(-15deg);
-    animation: foil-sweep 5s ease-in-out infinite;
     pointer-events: none;
     z-index: 2;
   }
 
-  .biz-card-back::after {
-    animation-delay: 2.5s;
+  .biz-card-front.foil-run::after {
+    animation: foil-sweep 2s ease-in-out forwards;
+  }
+
+  .biz-card-back.foil-run::after {
+    animation: foil-sweep 5s ease-in-out infinite;
   }
 
   @keyframes foil-sweep {
@@ -692,22 +708,34 @@
       radial-gradient(ellipse 80% 70% at 50% 50%, #1e2240 0%, #12142a 100%);
   }
 
-  .card-front-logo {
-    width: 150px;
-    -webkit-mask-image: radial-gradient(ellipse 70% 62% at 50% 50%, black 28%, transparent 95%);
-    mask-image: radial-gradient(ellipse 70% 62% at 50% 50%, black 28%, transparent 95%);
-    margin-bottom: 14px;
+  .card-circle {
+    width: 82px;
+    height: 82px;
+    border-radius: 50%;
+    border: 1px solid rgba(201, 169, 110, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+
+  .card-circle-monogram {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 0.08em;
   }
 
   .card-front-name {
     font-family: var(--serif);
-    font-size: 20px;
-    letter-spacing: 0.18em;
-    color: var(--cream-dim);
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: 0.32em;
+    color: var(--cream);
     text-transform: uppercase;
-    text-shadow:
-      0 1px 1px rgba(255, 220, 120, 0.4),
-      0 -1px 1px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    line-height: 1.5;
     position: relative;
     z-index: 3;
   }
@@ -1053,9 +1081,128 @@
     -webkit-mask-image: radial-gradient(ellipse 70% 62% at 50% 50%, black 28%, transparent 95%);
     mask-image: radial-gradient(ellipse 70% 62% at 50% 50%, black 28%, transparent 95%);
   }
+
+  /* -- INTRO OVERLAY -- */
+  #intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #C9A96E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: background 2.2s cubic-bezier(0.45, 0, 0.55, 1), opacity 1.2s ease;
+  }
+
+  #intro-overlay.night { background: #0a0a0a; }
+  #intro-overlay.fade-out { opacity: 0; pointer-events: none; }
+
+  .intro-wordmark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    user-select: none;
+  }
+
+  .intro-the {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(11px, 1.1vw, 16px);
+    font-weight: 400;
+    letter-spacing: 0.55em;
+    color: #1a1008;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 1.2s ease, color 2.2s cubic-bezier(0.45, 0, 0.55, 1);
+  }
+
+  .intro-the.night { color: #C9A96E; }
+
+  .intro-rule {
+    width: 48px;
+    height: 1px;
+    background: #1a1008;
+    opacity: 0;
+    transition: opacity 1s ease, background 2.2s cubic-bezier(0.45, 0, 0.55, 1);
+  }
+
+  .intro-rule.night { background: #C9A96E; }
+
+  .intro-main {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 7vw, 96px);
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: #1a1008;
+    opacity: 0;
+    transform: translateY(20px);
+    will-change: transform, opacity;
+    transition: color 2.2s cubic-bezier(0.45, 0, 0.55, 1);
+  }
+
+  .intro-main.night { color: #C9A96E; }
+
+
+  @keyframes intro-rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes intro-lights-on {
+    0%   { text-shadow: none; }
+    50%  { text-shadow: 0 0 20px rgba(201,169,110,1), 0 0 60px rgba(201,169,110,0.9), 0 0 120px rgba(201,169,110,0.7), 0 0 200px rgba(201,169,110,0.4); }
+    70%  { text-shadow: 0 0 40px rgba(255,220,140,1), 0 0 100px rgba(201,169,110,1), 0 0 200px rgba(201,169,110,0.8), 0 0 400px rgba(201,169,110,0.25); }
+    100% { text-shadow: 0 0 20px rgba(201,169,110,0.9), 0 0 60px rgba(201,169,110,0.5), 0 0 120px rgba(201,169,110,0.2); }
+  }
+
+  .intro-bottom-rule {
+    width: 48px;
+    height: 1px;
+    background: rgba(201,169,110,0.55);
+    opacity: 0;
+    margin-top: 4px;
+    transition: opacity 1.4s ease;
+  }
+
+  .intro-sub {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(20px, 2.2vw, 32px);
+    font-weight: 400;
+    color: rgba(240,230,208,0.75);
+    letter-spacing: 0.02em;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 1.4s ease, transform 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .intro-sub.show { opacity: 1; transform: translateY(0); }
+
+  .intro-tagline {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(9px, 0.85vw, 13px);
+    font-weight: 300;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(201,169,110,0.65);
+    opacity: 0;
+    transition: opacity 1.2s ease;
+  }
+
+  .intro-tagline.show { opacity: 1; }
 </style>
 </head>
 <body>
+
+<div id="intro-overlay">
+  <div class="intro-wordmark">
+    <div class="intro-the" id="intro-the">The</div>
+    <div class="intro-rule" id="intro-rule"></div>
+    <div class="intro-main" id="intro-main">Rizz Carlton</div>
+  </div>
+</div>
+
 <deck-stage width="1920" height="1080">
 
   <!-- â”€â”€ SLIDE 1: COVER â”€â”€ -->
@@ -1095,7 +1242,7 @@
       <div class="item-divider"></div>
 
       <div class="item-left">
-        <div class="suite-label"><span data-rk="suite-tv">Prime Time</span></div>
+        <div class="suite-label">Prime Time</div>
 
         <div class="gold-rule-short" style="margin-bottom: 28px;"></div>
 
@@ -1103,14 +1250,14 @@
 
         <div class="experience-lines">
           <div class="experience-line">The kind of screen that makes you rearrange the furniture.</div>
-          <div class="experience-line">A private cinema, a long night, a city that can wait outside.</div>
+          <div class="experience-line">A private cinema, an evening where the world can wait outside.</div>
           <div class="experience-line specs">4K Crystal &nbsp;·&nbsp; MetalStream &nbsp;·&nbsp; Alexa &nbsp;·&nbsp; Knox Security &nbsp;·&nbsp; 2,700 Channels</div>
         </div>
 
         <div class="price-block">
           <div class="price-label">The Rizz Rate</div>
           <div class="price-value">Make the Cut</div>
-          <div class="price-retail">Market ~$300</div>
+          <div class="price-retail">Market $300</div>
         </div>
       </div>
 
@@ -1132,7 +1279,7 @@
       <div class="item-divider"></div>
 
       <div class="item-left">
-        <div class="suite-label"><span data-rk="suite-chair">Recline &amp; Dine</span></div>
+        <div class="suite-label">Settle In</div>
 
         <div class="gold-rule-short" style="margin-bottom: 28px;"></div>
 
@@ -1147,7 +1294,7 @@
         <div class="price-block">
           <div class="price-label">The Rizz Rate</div>
           <div class="price-value">Put It on the Table</div>
-          <div class="price-retail">Market ~$225</div>
+          <div class="price-retail">Market $225</div>
         </div>
       </div>
 
@@ -1184,7 +1331,7 @@
         <div class="price-block">
           <div class="price-label">The Rizz Rate · Suite Bundle</div>
           <div class="price-value">Lay It Down</div>
-          <div class="price-retail">Market ~$510 &nbsp;·&nbsp; Available separately upon request</div>
+          <div class="price-retail">Market $510 &nbsp;·&nbsp; Available separately upon request</div>
         </div>
       </div>
 
@@ -1205,14 +1352,17 @@
     <div class="logo-watermark-wrap"><img class="logo-watermark" src="images/rc-logo.png" alt=""></div>
 
     <div class="closing-inner">
-      <div class="closing-title">The Rizz Carlton. Now Checking Out.</div>
+      <div class="closing-title">The Rizz Carlton. Checking Out.</div>
+      <div class="closing-cta">The collection, however, is available.</div>
 
       <div class="biz-card-wrap">
         <div class="biz-card" id="biz-card">
 
           <div class="biz-card-front">
-            <img class="card-front-logo" src="images/rc-logo.png" alt="RC">
-            <div class="card-front-name">The Rizz Carlton</div>
+            <div class="card-circle">
+              <div class="card-circle-monogram">RC</div>
+            </div>
+            <div class="card-front-name">THE RIZZ<br>CARLTON</div>
           </div>
 
           <div class="biz-card-back">
@@ -1244,6 +1394,7 @@
 
 <script>
   const audio = document.getElementById('bg-music');
+  audio.volume = 1;
   audio.currentTime = 60;
 
   audio.addEventListener('ended', () => {
@@ -1251,35 +1402,87 @@
     audio.play();
   });
 
-  // Try autoplay immediately
-  audio.play().catch(() => {
-    // If blocked, start on first slide navigation (guaranteed user gesture)
-    const deck = document.querySelector('deck-stage');
-    function startOnNav(e) {
-      if (e.detail.reason === 'init') return;
-      audio.play();
-      deck.removeEventListener('slidechange', startOnNav);
-    }
-    deck.addEventListener('slidechange', startOnNav);
-  });
+  // Start audio when intro fades out
+  setTimeout(() => {
+    audio.play().catch(() => {
+      const deck = document.querySelector('deck-stage');
+      function startOnNav(e) {
+        if (e.detail.reason === 'init') return;
+        audio.play();
+        deck.removeEventListener('slidechange', startOnNav);
+      }
+      deck.addEventListener('slidechange', startOnNav);
+    });
+  }, 9000);
 </script>
 
 <script>
-  const bizCard = document.getElementById('biz-card');
-  let flipTimeout = null;
+  (function () {
+    const overlay   = document.getElementById('intro-overlay');
+    const introThe  = document.getElementById('intro-the');
+    const introRule = document.getElementById('intro-rule');
+    const introMain = document.getElementById('intro-main');
+
+    // Beat 1 — "The" fades in
+    setTimeout(() => introThe.style.opacity = '1', 400);
+    // Beat 2 — rule
+    setTimeout(() => introRule.style.opacity = '1', 900);
+    // Beat 3 — wordmark rises
+    setTimeout(() => {
+      introMain.style.animation = 'intro-rise 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+    }, 1400);
+    // Beat 4 — day to night
+    setTimeout(() => {
+      overlay.classList.add('night');
+      introThe.classList.add('night');
+      introRule.classList.add('night');
+      introMain.classList.add('night');
+    }, 3000);
+    // Beat 5 — lights on
+    setTimeout(() => {
+      introMain.style.opacity = '1';
+      introMain.style.transform = 'none';
+      introMain.style.animation = 'intro-lights-on 2.6s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+    }, 5400);
+    // Beat 6 — hold, then fade out into deck
+    setTimeout(() => overlay.classList.add('fade-out'), 9000);
+    // Beat 7 — remove from DOM
+    setTimeout(() => overlay.remove(), 10300);
+  })();
+</script>
+
+<script>
+  const bizCard     = document.getElementById('biz-card');
+  const cardFront   = bizCard.querySelector('.biz-card-front');
+  const cardBack    = bizCard.querySelector('.biz-card-back');
+  let flipTimeout   = null;
+  let foilTimeout   = null;
 
   function startFlip() {
     clearTimeout(flipTimeout);
+    clearTimeout(foilTimeout);
     bizCard.classList.remove('flipped');
+    cardFront.classList.remove('foil-run');
+    cardBack.classList.remove('foil-run');
+
+    // Front foil sweeps once at 1s
+    foilTimeout = setTimeout(() => cardFront.classList.add('foil-run'), 1000);
+
+    // Card flips at 2.5s
     flipTimeout = setTimeout(() => {
       bizCard.classList.add('flipped');
-    }, 1200);
+      cardBack.classList.add('foil-run');
+    }, 2500);
   }
 
   function stopFlip() {
     clearTimeout(flipTimeout);
+    clearTimeout(foilTimeout);
     flipTimeout = null;
+    foilTimeout = null;
     bizCard.classList.remove('flipped');
+    cardFront.classList.remove('foil-run');
+    cardBack.classList.remove('foil-run');
   }
 
   document.querySelector('deck-stage').addEventListener('slidechange', (e) => {
@@ -1293,15 +1496,46 @@
 </script>
 
 <script>
+  // Initialize galleries without starting rotation
   document.querySelectorAll('.photo-gallery').forEach(gallery => {
     const imgs = gallery.querySelectorAll('.gallery-img');
     if (imgs.length < 2) return;
-    let current = 0;
-    setInterval(() => {
-      imgs[current].classList.remove('active');
-      current = (current + 1) % imgs.length;
-      imgs[current].classList.add('active');
-    }, 4000);
+    gallery._imgs = imgs;
+    gallery._current = 0;
+    gallery._interval = null;
+  });
+
+  function startGallery(slide) {
+    if (!slide) return;
+    const gallery = slide.querySelector('.photo-gallery');
+    if (!gallery || !gallery._imgs) return;
+    // First image holds 3s longer, then regular 4s rotation
+    gallery._timeout = setTimeout(() => {
+      gallery._imgs[gallery._current].classList.remove('active');
+      gallery._current = (gallery._current + 1) % gallery._imgs.length;
+      gallery._imgs[gallery._current].classList.add('active');
+      gallery._interval = setInterval(() => {
+        gallery._imgs[gallery._current].classList.remove('active');
+        gallery._current = (gallery._current + 1) % gallery._imgs.length;
+        gallery._imgs[gallery._current].classList.add('active');
+      }, 4000);
+    }, 3000);
+  }
+
+  function resetAllGalleries() {
+    document.querySelectorAll('.photo-gallery').forEach(gallery => {
+      if (gallery._timeout)  { clearTimeout(gallery._timeout);   gallery._timeout  = null; }
+      if (gallery._interval) { clearInterval(gallery._interval); gallery._interval = null; }
+      if (gallery._imgs) {
+        gallery._imgs.forEach((img, i) => img.classList.toggle('active', i === 0));
+        gallery._current = 0;
+      }
+    });
+  }
+
+  document.querySelector('deck-stage').addEventListener('slidechange', e => {
+    resetAllGalleries();
+    startGallery(e.detail.slide);
   });
 </script>
 
