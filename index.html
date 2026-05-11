@@ -1186,24 +1186,34 @@
       text-decoration: none;
       margin-bottom: 28px;
     }
-    .mob-footer {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(201,169,110,0.45);
+    .mob-deck-rule {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,169,110,0.3), transparent);
+      margin: 28px 0;
+    }
+    .mob-desktop-note {
+      font-size: 13px;
+      color: rgba(240,230,208,0.5);
       font-family: 'DM Sans', sans-serif;
       text-align: center;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
     }
     .mob-view-deck {
-      margin-top: 14px;
-      font-size: 12px;
-      color: rgba(240,230,208,0.35);
-      font-family: 'DM Sans', sans-serif;
+      display: block;
+      width: 100%;
+      padding: 15px 0;
+      background: transparent;
+      border: 1px solid rgba(201,169,110,0.6);
+      color: #C9A96E;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-align: center;
       cursor: pointer;
-      text-decoration: underline;
-      background: none;
-      border: none;
-      padding: 0;
     }
   }
 
@@ -1342,8 +1352,9 @@
     </div>
     <div class="mob-offers">All offers considered.</div>
     <a class="mob-cta" href="https://slack.com/app_redirect?channel=U07JQF04138&team=TFDKER7FD" target="_blank">Inquire on Slack &nbsp;&rarr;</a>
-    <div class="mob-footer">Full collection viewable on desktop</div>
-    <button class="mob-view-deck" onclick="document.getElementById('mobile-overlay').style.display='none'">View deck anyway</button>
+    <div class="mob-deck-rule"></div>
+    <div class="mob-desktop-note">Designed for desktop.<br>For the full Rizz Carlton experience, open on laptop.</div>
+    <button class="mob-view-deck" onclick="document.getElementById('mobile-overlay').style.display='none'">View Full Lookbook &nbsp;&rarr;</button>
   </div>
 </div>
 
