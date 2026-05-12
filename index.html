@@ -1353,7 +1353,7 @@
     .cover-tagline       { font-size: 9px; letter-spacing: 0.10em; padding: 0 28px; white-space: normal; line-height: 2; }
     .logo-watermark-wrap { width: 64px; bottom: 12px; right: 14px; }
 
-    /* ── ITEM SLIDES: full-bleed photo, text overlaid at bottom ── */
+    /* ── ITEM SLIDES: image top half, text panel bottom half ── */
     .item-slide {
       display: block;
       position: relative;
@@ -1361,10 +1361,11 @@
     }
     .item-divider { display: none; }
 
-    /* Photo fills the entire slide */
+    /* Image: top 50% */
     .item-right {
       position: absolute;
-      inset: 0;
+      top: 0; left: 0; right: 0;
+      height: 50%;
       padding: 0;
       overflow: hidden;
       align-items: stretch;
@@ -1380,37 +1381,25 @@
     .photo-gallery::after { display: none; }
     .gallery-img { object-fit: cover; object-position: center center; }
 
-    /* Gradient scrim for text legibility */
-    .item-slide::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        transparent 25%,
-        rgba(8, 9, 15, 0.55) 52%,
-        rgba(8, 9, 15, 0.97) 72%
-      );
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Text pinned to bottom over the scrim */
+    /* Text panel: bottom 50%, solid dark background */
     .item-left {
       position: absolute;
-      left: 0; right: 0; bottom: 0;
-      padding: 0 28px 36px;
-      justify-content: flex-end;
-      z-index: 2;
+      top: 50%; left: 0; right: 0; bottom: 0;
+      padding: 20px 28px 28px;
+      justify-content: flex-start;
+      background: var(--navy);
+      overflow: hidden;
     }
-    .suite-label       { font-size: 16px; margin-bottom: 4px; }
-    .gold-rule-short   { display: none; }
-    .item-slide-title  { font-size: 34px; margin-bottom: 10px; line-height: 1.05; }
-    .experience-lines  { display: none; }
-    .price-block       { padding-top: 12px; gap: 2px; border-top-color: rgba(180,150,80,0.35); }
-    .price-label       { font-size: 10px; letter-spacing: 0.2em; }
-    .price-value       { font-size: 28px; }
-    .price-retail      { font-size: 12px; }
+    .suite-label          { font-size: 16px; margin-bottom: 4px; }
+    .gold-rule-short      { margin-bottom: 14px !important; }
+    .item-slide-title     { font-size: 30px; margin-bottom: 8px; line-height: 1.05; }
+    .experience-lines     { margin-top: 6px; margin-bottom: 14px; gap: 5px; }
+    .experience-line      { font-size: 13px; line-height: 1.45; }
+    .experience-line.specs { display: none; }
+    .price-block          { padding-top: 12px; gap: 2px; }
+    .price-label          { font-size: 10px; letter-spacing: 0.2em; }
+    .price-value          { font-size: 26px; }
+    .price-retail         { font-size: 12px; }
 
     /* ── CLOSING ── */
     .closing-border { inset: 14px; }
