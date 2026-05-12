@@ -1337,7 +1337,6 @@
 
   /* ── MOBILE RESPONSIVE DECK ─────────────────────────────── */
   @media (max-width: 767px) {
-    /* Deck is now responsive — hide the static overlay */
     #mobile-overlay { display: none !important; }
 
     /* ── COVER ── */
@@ -1346,30 +1345,30 @@
     .cover-corners       { inset: 14px; }
     .cover-corners::before,
     .cover-corners::after { width: 26px; height: 26px; }
-    .crest-logo          { width: 190px; margin-top: -24px; }
+    .crest-logo          { width: 200px; margin-top: -20px; }
     .crest-rule-wrap     { width: calc(100% - 48px); }
-    .cover-property      { font-size: 9px; letter-spacing: 0.2em; padding: 0 16px; text-align: center; }
-    .cover-title         { font-size: 42px; padding: 0 16px; }
-    .cover-subtitle      { font-size: 19px; white-space: normal; padding: 0 24px; margin-bottom: 28px; }
-    .cover-tagline       { font-size: 9px; letter-spacing: 0.10em; padding: 0 28px; white-space: normal; line-height: 1.9; }
+    .cover-property      { font-size: 9px; letter-spacing: 0.18em; padding: 0 16px; text-align: center; }
+    .cover-title         { font-size: 44px; padding: 0 16px; }
+    .cover-subtitle      { font-size: 20px; white-space: normal; padding: 0 24px; margin-bottom: 28px; }
+    .cover-tagline       { font-size: 9px; letter-spacing: 0.10em; padding: 0 28px; white-space: normal; line-height: 2; }
+    .logo-watermark-wrap { width: 64px; bottom: 12px; right: 14px; }
 
-    /* ── ITEM SLIDES ── */
+    /* ── ITEM SLIDES: full-bleed photo, text overlaid at bottom ── */
     .item-slide {
-      grid-template-columns: 1fr;
-      grid-template-rows: 40% 60%;
+      display: block;
+      position: relative;
       height: 100%;
     }
     .item-divider { display: none; }
+
+    /* Photo fills the entire slide */
     .item-right {
-      order: -1;
+      position: absolute;
+      inset: 0;
       padding: 0;
-      height: 100%;
       overflow: hidden;
-    }
-    .item-left {
-      padding: 16px 28px 20px;
-      justify-content: flex-start;
-      overflow: hidden;
+      align-items: stretch;
+      justify-content: stretch;
     }
     .photo-gallery {
       width: 100%;
@@ -1379,32 +1378,51 @@
       border-radius: 0;
     }
     .photo-gallery::after { display: none; }
-    .gallery-img          { object-position: center top; }
+    .gallery-img { object-fit: cover; object-position: center center; }
 
-    .suite-label          { font-size: 18px; margin-bottom: 6px; }
-    .gold-rule-short      { margin-bottom: 12px !important; }
-    .item-slide-title     { font-size: 32px; margin-bottom: 6px; line-height: 1.05; }
-    .experience-lines     { margin-top: 8px; margin-bottom: 16px; gap: 6px; }
-    .experience-line      { font-size: 14px; line-height: 1.5; }
-    .experience-line.specs { font-size: 11px; margin-top: 6px; }
-    .price-block          { padding-top: 14px; gap: 3px; }
-    .price-label          { font-size: 10px; letter-spacing: 0.18em; }
-    .price-value          { font-size: 30px; }
-    .price-retail         { font-size: 12px; }
-    .logo-watermark-wrap  { width: 64px; bottom: 10px; right: 10px; }
+    /* Gradient scrim for text legibility */
+    .item-slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 25%,
+        rgba(8, 9, 15, 0.55) 52%,
+        rgba(8, 9, 15, 0.97) 72%
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Text pinned to bottom over the scrim */
+    .item-left {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 0 28px 36px;
+      justify-content: flex-end;
+      z-index: 2;
+    }
+    .suite-label       { font-size: 16px; margin-bottom: 4px; }
+    .gold-rule-short   { display: none; }
+    .item-slide-title  { font-size: 34px; margin-bottom: 10px; line-height: 1.05; }
+    .experience-lines  { display: none; }
+    .price-block       { padding-top: 12px; gap: 2px; border-top-color: rgba(180,150,80,0.35); }
+    .price-label       { font-size: 10px; letter-spacing: 0.2em; }
+    .price-value       { font-size: 28px; }
+    .price-retail      { font-size: 12px; }
 
     /* ── CLOSING ── */
     .closing-border { inset: 14px; }
     .closing-title {
       font-size: 24px;
       white-space: normal;
-      padding: 0 24px;
+      padding: 0 20px;
       margin-top: 0;
       margin-bottom: 10px;
-      text-align: center;
     }
-    .closing-cta   { font-size: 17px; padding: 0 24px; margin-bottom: 16px; }
-    .biz-card-wrap { width: min(300px, 82vw); height: 192px; }
+    .closing-cta   { font-size: 17px; padding: 0 20px; margin-bottom: 20px; }
+    .biz-card-wrap { width: min(300px, 84vw); height: 192px; margin-bottom: 16px; }
     .biz-card {
       box-shadow:
         0 12px 30px rgba(0,0,0,0.55),
