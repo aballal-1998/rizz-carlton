@@ -1235,7 +1235,7 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transition: background 2.2s cubic-bezier(0.45, 0, 0.55, 1), opacity 1.2s ease;
+    transition: background 1.2s cubic-bezier(0.45, 0, 0.55, 1), opacity 1.2s ease;
   }
 
   #intro-overlay.night { background: #0a0a0a; }
@@ -1257,7 +1257,7 @@
     color: #1a1008;
     text-transform: uppercase;
     opacity: 0;
-    transition: opacity 1.2s ease, color 2.2s cubic-bezier(0.45, 0, 0.55, 1);
+    transition: opacity 1.2s ease, color 1.2s cubic-bezier(0.45, 0, 0.55, 1);
   }
 
   .intro-the.night { color: #C9A96E; }
@@ -1267,7 +1267,7 @@
     height: 1px;
     background: #1a1008;
     opacity: 0;
-    transition: opacity 1s ease, background 2.2s cubic-bezier(0.45, 0, 0.55, 1);
+    transition: opacity 1s ease, background 1.2s cubic-bezier(0.45, 0, 0.55, 1);
   }
 
   .intro-rule.night { background: #C9A96E; }
@@ -1281,7 +1281,7 @@
     opacity: 0;
     transform: translateY(20px);
     will-change: transform, opacity;
-    transition: color 2.2s cubic-bezier(0.45, 0, 0.55, 1);
+    transition: color 1.2s cubic-bezier(0.45, 0, 0.55, 1);
   }
 
   .intro-main.night { color: #C9A96E; }
@@ -1584,7 +1584,7 @@
       }
       deck.addEventListener('slidechange', startOnNav);
     });
-  }, 9000);
+  }, 5000);
 </script>
 
 <script>
@@ -1595,30 +1595,30 @@
     const introMain = document.getElementById('intro-main');
 
     // Beat 1 — "The" fades in
-    setTimeout(() => introThe.style.opacity = '1', 400);
+    setTimeout(() => introThe.style.opacity = '1', 200);
     // Beat 2 — rule
-    setTimeout(() => introRule.style.opacity = '1', 900);
+    setTimeout(() => introRule.style.opacity = '1', 500);
     // Beat 3 — wordmark rises
     setTimeout(() => {
-      introMain.style.animation = 'intro-rise 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
-    }, 1400);
+      introMain.style.animation = 'intro-rise 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+    }, 800);
     // Beat 4 — day to night
     setTimeout(() => {
       overlay.classList.add('night');
       introThe.classList.add('night');
       introRule.classList.add('night');
       introMain.classList.add('night');
-    }, 3000);
+    }, 1800);
     // Beat 5 — lights on
     setTimeout(() => {
       introMain.style.opacity = '1';
       introMain.style.transform = 'none';
-      introMain.style.animation = 'intro-lights-on 2.6s cubic-bezier(0.4, 0, 0.2, 1) forwards';
-    }, 5400);
-    // Beat 6 — hold, then fade out into deck
-    setTimeout(() => overlay.classList.add('fade-out'), 9000);
+      introMain.style.animation = 'intro-lights-on 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards';
+    }, 3200);
+    // Beat 6 — fade out into deck
+    setTimeout(() => overlay.classList.add('fade-out'), 5000);
     // Beat 7 — remove from DOM
-    setTimeout(() => overlay.remove(), 10300);
+    setTimeout(() => overlay.remove(), 6200);
   })();
 </script>
 
@@ -1883,4 +1883,6 @@ ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />
 </script>
 </body>
 </html>
+
+
 
