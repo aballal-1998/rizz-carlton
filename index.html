@@ -1334,6 +1334,100 @@
   }
 
   .intro-tagline.show { opacity: 1; }
+
+  /* ── MOBILE RESPONSIVE DECK ─────────────────────────────── */
+  @media (max-width: 767px) {
+    /* Deck is now responsive — hide the static overlay */
+    #mobile-overlay { display: none !important; }
+
+    /* ── COVER ── */
+    .cover-border        { inset: 14px; }
+    .cover-border-inner  { inset: 22px; }
+    .cover-corners       { inset: 14px; }
+    .cover-corners::before,
+    .cover-corners::after { width: 26px; height: 26px; }
+    .crest-logo          { width: 190px; margin-top: -24px; }
+    .crest-rule-wrap     { width: calc(100% - 48px); }
+    .cover-property      { font-size: 9px; letter-spacing: 0.2em; padding: 0 16px; text-align: center; }
+    .cover-title         { font-size: 42px; padding: 0 16px; }
+    .cover-subtitle      { font-size: 19px; white-space: normal; padding: 0 24px; margin-bottom: 28px; }
+    .cover-tagline       { font-size: 9px; letter-spacing: 0.10em; padding: 0 28px; white-space: normal; line-height: 1.9; }
+
+    /* ── ITEM SLIDES ── */
+    .item-slide {
+      grid-template-columns: 1fr;
+      grid-template-rows: 40% 60%;
+      height: 100%;
+    }
+    .item-divider { display: none; }
+    .item-right {
+      order: -1;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    .item-left {
+      padding: 16px 28px 20px;
+      justify-content: flex-start;
+      overflow: hidden;
+    }
+    .photo-gallery {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      aspect-ratio: unset;
+      border-radius: 0;
+    }
+    .photo-gallery::after { display: none; }
+    .gallery-img          { object-position: center top; }
+
+    .suite-label          { font-size: 18px; margin-bottom: 6px; }
+    .gold-rule-short      { margin-bottom: 12px !important; }
+    .item-slide-title     { font-size: 32px; margin-bottom: 6px; line-height: 1.05; }
+    .experience-lines     { margin-top: 8px; margin-bottom: 16px; gap: 6px; }
+    .experience-line      { font-size: 14px; line-height: 1.5; }
+    .experience-line.specs { font-size: 11px; margin-top: 6px; }
+    .price-block          { padding-top: 14px; gap: 3px; }
+    .price-label          { font-size: 10px; letter-spacing: 0.18em; }
+    .price-value          { font-size: 30px; }
+    .price-retail         { font-size: 12px; }
+    .logo-watermark-wrap  { width: 64px; bottom: 10px; right: 10px; }
+
+    /* ── CLOSING ── */
+    .closing-border { inset: 14px; }
+    .closing-title {
+      font-size: 24px;
+      white-space: normal;
+      padding: 0 24px;
+      margin-top: 0;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .closing-cta   { font-size: 17px; padding: 0 24px; margin-bottom: 16px; }
+    .biz-card-wrap { width: min(300px, 82vw); height: 192px; }
+    .biz-card {
+      box-shadow:
+        0 12px 30px rgba(0,0,0,0.55),
+        0 3px 9px rgba(0,0,0,0.35),
+        2px 2px 0 rgba(180,150,80,0.28),
+        4px 4px 0 rgba(180,150,80,0.16),
+        6px 6px 0 rgba(180,150,80,0.08);
+    }
+    .biz-card-front,
+    .biz-card-back        { padding: 18px 28px; }
+    .card-circle          { width: 50px; height: 50px; margin-bottom: 12px; }
+    .card-circle-monogram { font-size: 16px; }
+    .card-front-name      { font-size: 15px; letter-spacing: 0.22em; }
+    .card-monogram        { font-size: 15px; margin-bottom: 6px; }
+    .card-rule            { margin-bottom: 10px; }
+    .contact-label        { font-size: 9px; letter-spacing: 0.22em; margin-bottom: 5px; }
+    .contact-line         { font-size: 17px; margin-bottom: 2px; }
+    .contact-title        { font-size: 12px; margin-bottom: 8px; }
+    .card-divider         { font-size: 10px; margin: 6px 0; }
+    .contact-sub          { font-size: 11px; }
+    .slack-btn            { font-size: 16px; padding: 9px 22px; margin-top: 4px; }
+    .closing-note         { font-size: 10px; letter-spacing: 0.12em; }
+  }
 </style>
 </head>
 <body>
@@ -1707,6 +1801,16 @@
   document.querySelector('deck-stage').addEventListener('slidechange', e => {
     resetAllGalleries();
     startGallery(e.detail.slide);
+  });
+</script>
+
+<script>
+  document.querySelector('deck-stage').addEventListener('slidechange', e => {
+    if (e.detail.reason === 'init') return;
+    gtag('event', 'slide_view', {
+      slide_label: e.detail.slide ? e.detail.slide.dataset.label : 'unknown',
+      navigation_method: e.detail.reason
+    });
   });
 </script>
 
