@@ -1223,6 +1223,23 @@
       text-align: center;
       cursor: pointer;
     }
+
+    #mob-video-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 100000;
+      background: #000;
+      transition: opacity 0.8s ease;
+    }
+    #mob-video-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #mob-video-screen video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   /* -- INTRO OVERLAY -- */
@@ -1440,6 +1457,11 @@
 <body>
 
 <div id="mobile-overlay">
+  <div id="mob-video-screen">
+    <video id="mob-intro-video" playsinline muted autoplay>
+      <source src="intro_video_vertical.mp4" type="video/mp4">
+    </video>
+  </div>
   <div class="mob-inner">
     <div class="mob-the">The</div>
     <div class="mob-title">Rizz Carlton</div>
@@ -1838,6 +1860,25 @@
       navigation_method: e.detail.reason
     });
   });
+</script>
+
+<script>
+  (function () {
+    if (window.innerWidth >= 768) return;
+    const screen = document.getElementById('mob-video-screen');
+    if (!screen) return;
+    const video = screen.querySelector('video');
+
+    function dismiss() {
+      if (!screen.parentNode) return;
+      screen.classList.add('fade-out');
+      setTimeout(function() { if (screen.parentNode) screen.remove(); }, 800);
+    }
+
+    video.addEventListener('ended', dismiss);
+    screen.addEventListener('click', dismiss);
+    setTimeout(dismiss, 10000);
+  })();
 </script>
 
 <div id="tweaks-root"></div>
